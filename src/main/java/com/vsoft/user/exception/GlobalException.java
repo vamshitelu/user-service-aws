@@ -12,12 +12,14 @@ import java.sql.SQLDataException;
 public class GlobalException {
 
     @ExceptionHandler(SQLDataException.class)
-    public ResponseEntity<String> handleSQLDataException(Exception e){
-        return new ResponseEntity<>("User already exist.", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<com. vsoft. user. model. Exception> handleSQLDataException(Exception e){
+        com.vsoft.user.model.Exception ex = new com.vsoft.user.model.Exception("Failure", e.getMessage());
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(Exception e){
-        return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(400));
+    public ResponseEntity<com.vsoft.user.model.Exception> handleRuntimeException(Exception e){
+        com.vsoft.user.model.Exception ex = new com.vsoft.user.model.Exception("Failure", e.getMessage());
+        return new ResponseEntity<>(ex, HttpStatusCode.valueOf(400));
     }
 }
